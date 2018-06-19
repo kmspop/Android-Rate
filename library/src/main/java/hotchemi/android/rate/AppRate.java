@@ -1,6 +1,7 @@
 package hotchemi.android.rate;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 
@@ -29,6 +30,8 @@ public final class AppRate {
     private int remindInterval = 1;
 
     private boolean isDebug = false;
+
+    private Dialog dialog;
 
     private AppRate(Context context) {
         this.context = context.getApplicationContext();
@@ -181,8 +184,17 @@ public final class AppRate {
     }
 
     public void showRateDialog(Activity activity) {
+        dismissRateDialog();
         if (!activity.isFinishing()) {
-            create(activity, options).show();
+            dialog = create(activity, options);
+            dialog.show();
+        }
+    }
+
+    public void dismissRateDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
         }
     }
 
